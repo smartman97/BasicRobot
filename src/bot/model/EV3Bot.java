@@ -31,6 +31,7 @@ public class EV3Bot
 		this.waitTime = 4000;
 		
 		distanceSensor = new EV3UltrasonicSensor(LocalEV3.get().getPort("S1"));
+		distanceSensor.getDistanceMode();
 		backTouch = new EV3TouchSensor(LocalEV3.get().getPort("S2"));
 		
 		setupPilot();
@@ -44,7 +45,7 @@ public class EV3Bot
 		//Chassis chassis = new DifferentailChassis(new Wheel[]{wheel1, wheel2});
 		//MovePilot pilot = new MovePilot(chassis);
 		Wheel leftWheel = WheeledChassis.modelWheel(Motor.A, 43.2).offset(-72);
-		Wheel rightWheel = WheeledChassis.modelWheel(Motor.B, 43.2).offset(-72);
+		Wheel rightWheel = WheeledChassis.modelWheel(Motor.B, 43.2).offset(72);
 		WheeledChassis chassis = new WheeledChassis(new Wheel[]{leftWheel, rightWheel}, WheeledChassis.TYPE_DIFFERENTIAL);
 		botPilot = new MovePilot(chassis);
 	}
@@ -55,25 +56,11 @@ public class EV3Bot
 		distanceSensor.fetchSample(ultrasonicSamples, 0);
 		if(ultrasonicSamples[0] < 2.5) //Not a real number. Figure out a better number.
 		{
-			//short method 
-			botPilot.travel(91);
-			botPilot.rotateRight();
-			botPilot.travel(366);
-			botPilot.rotateLeft();
-			botPilot.travel(579);
-			botPilot.rotateRight();
-			botPilot.travel(396);
+			shortPath();
 		}
 		else
 		{
-			//long method
-			botPilot.travel(396);
-			botPilot.rotateLeft();
-			botPilot.travel(579);
-			botPilot.rotateRight();
-			botPilot.travel(366);
-			botPilot.rotateLeft();
-			botPilot.travel(91);
+			longPath();
 		}
 		/*
 		 * Distances 13ft by 19 ft by 12 ft by 3 ft
@@ -82,6 +69,30 @@ public class EV3Bot
 		
 		//call private helper method here.
 		displayMessage("DriveRoom");
+	}
+	
+	private void shortPath()
+	{
+		//short method 
+		botPilot.travel(91);
+		botPilot.rotateRight();
+		botPilot.travel(366);
+		botPilot.rotateLeft();
+		botPilot.travel(579);
+		botPilot.rotateRight();
+		botPilot.travel(396);
+	}
+	
+	private void longPath()
+	{
+		//long method
+		botPilot.travel(396);
+		botPilot.rotateLeft();
+		botPilot.travel(579);
+		botPilot.rotateRight();
+		botPilot.travel(366);
+		botPilot.rotateLeft();
+		botPilot.travel(91);
 	}
 	
 	private void displayMessage()

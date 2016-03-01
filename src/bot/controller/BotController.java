@@ -17,6 +17,7 @@ public class BotController
 		this.yPosition = 100;
 		this.waitTime = 4000;
 		this.message = "I'm a robot";
+		sillyBot = new EV3Bot();
 	}
 	
 	public void start()
