@@ -26,9 +26,9 @@ public class EV3Bot
 	public EV3Bot()
 	{
 		this.botMessage = "Colm is the best!";
-		this.xPosition = 50;
-		this.yPosition = 50;
-		this.waitTime = 4000;
+		this.xPosition = 1;
+		this.yPosition = 0;
+		this.waitTime = 500;
 		
 		distanceSensor = new EV3UltrasonicSensor(LocalEV3.get().getPort("S1"));
 		distanceSensor.getDistanceMode();
@@ -54,7 +54,7 @@ public class EV3Bot
 	{
 		ultrasonicSamples = new float[distanceSensor.sampleSize()];
 		distanceSensor.fetchSample(ultrasonicSamples, 0);
-		if(ultrasonicSamples[0] < 2.5) //Not a real number. Figure out a better number.
+		if(true) //Not a real number. Figure out a better number. ultrasonicSamples[0] < .5
 		{
 			shortPath();
 		}
@@ -66,33 +66,41 @@ public class EV3Bot
 		 * Distances 13ft by 19 ft by 12 ft by 3 ft
 		 * in CM 396 by 579 by 366 by 91
 		 */
-		
+		distanceSensor.fetchSample(ultrasonicSamples, 0);
 		//call private helper method here.
 		displayMessage("DriveRoom");
+	}
+	
+	public void dance()
+	{
+		displayMessage("DANCE TIME™");
+		botPilot.rotate(-10);
+		botPilot.rotate(10);
+		botPilot.rotate(-360);
 	}
 	
 	private void shortPath()
 	{
 		//short method 
-		botPilot.travel(91);
-		botPilot.rotateRight();
-		botPilot.travel(366);
-		botPilot.rotateLeft();
-		botPilot.travel(579);
-		botPilot.rotateRight();
-		botPilot.travel(396);
+		botPilot.travel(910);
+		botPilot.rotate(65);
+		botPilot.travel(3660);
+		botPilot.rotate(-65);
+		botPilot.travel(5500);
+		botPilot.rotate(65);
+		botPilot.travel(3960);
 	}
 	
 	private void longPath()
 	{
 		//long method
-		botPilot.travel(396);
-		botPilot.rotateLeft();
-		botPilot.travel(579);
-		botPilot.rotateRight();
-		botPilot.travel(366);
-		botPilot.rotateLeft();
-		botPilot.travel(91);
+		botPilot.travel(3960);
+		botPilot.rotate(-65);
+		botPilot.travel(5500);
+		botPilot.rotate(65);
+		botPilot.travel(3660);
+		botPilot.rotate(-65);
+		botPilot.travel(910);
 	}
 	
 	private void displayMessage()
