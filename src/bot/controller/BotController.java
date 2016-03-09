@@ -24,8 +24,9 @@ public class BotController
 	{
 		LCD.drawString(message, xPosition, yPosition);
 		//Delay.msDelay(waitTime);
-		sillyBot.driveRoom();
-		sillyBot.dance();
+		//sillyBot.driveRoom();
+		//sillyBot.dance();
+		sillyBot.driveAround();
 	}
 
 	public String getMessage()
