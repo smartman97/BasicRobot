@@ -15,7 +15,7 @@ public class BotController
 	{
 		this.xPosition = 50;
 		this.yPosition = 100;
-		this.waitTime = 4000;
+		this.waitTime = 500;
 		this.message = "I'm a robot";
 		sillyBot = new EV3Bot();
 	}
@@ -25,8 +25,8 @@ public class BotController
 		LCD.drawString(message, xPosition, yPosition);
 		//Delay.msDelay(waitTime);
 		//sillyBot.driveRoom();
-		//sillyBot.dance();
-		sillyBot.driveAround();
+		sillyBot.dance();
+		//sillyBot.driveAround();
 	}
 
 	public String getMessage()
